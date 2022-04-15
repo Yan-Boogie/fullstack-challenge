@@ -1,14 +1,9 @@
-import Link from 'next/link'
-import Layout from '../components/layout/';
+import Layout from '@@components/layout/';
+import HomePage from '@@components/homePage';
 
 const IndexPage = () => (
   <Layout>
-    {/* <h1>Hello Next.js 👋</h1>
-    <p>
-      <Link href="/about">
-        <a>About</a>
-      </Link>
-    </p> */}
+    <HomePage />
   </Layout>
 )
 
