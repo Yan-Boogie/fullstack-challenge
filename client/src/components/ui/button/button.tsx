@@ -30,7 +30,6 @@ const Button = (props: IButton) => {
     className = '',
     size = 'small',
     startIcon = null,
-    disabled = false,
     bgColor = 'none',
     children = null,
     round = false,
@@ -61,7 +60,6 @@ const Button = (props: IButton) => {
 
   return (
     <MuiButton
-      disabled={disabled}
       className={`flex items-center	space-x-2 rounded-3xl ${btnSizeMapper[`${size}`]} ${btnBGColorMapper[`${bgColor}`]} ${className}`}
       {...rest}
     >

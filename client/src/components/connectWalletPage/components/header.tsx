@@ -1,9 +1,9 @@
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 import Button from '@@components/ui/button/button';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 const Header = () => {
-  const router = useRouter()
+  const router = useRouter();
 
   return (
     <section className="flex w-full border-b h-16 items-center justify-start p-4">
