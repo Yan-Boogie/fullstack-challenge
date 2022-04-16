@@ -47,8 +47,6 @@ export interface IBlockButton {
 export const BlockButton = ({ format, icon }: IBlockButton) => {
   const editor = useSlate();
 
-  console.log('activated-->\n', isBlockActive(editor, format));
-
   return (
     <Button
       round

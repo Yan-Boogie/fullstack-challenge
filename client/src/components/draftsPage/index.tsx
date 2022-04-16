@@ -1,8 +1,12 @@
 import SlateEditor from '../slateEditor';
+import Header from './components';
 
 const Drafts = () => {
   return (
-    <SlateEditor />
+    <div className="flex flex-col w-full h-full">
+      <Header />
+      <SlateEditor />
+    </div>
   );
 }
 
