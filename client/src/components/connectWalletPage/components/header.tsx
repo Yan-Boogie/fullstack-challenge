@@ -10,7 +10,6 @@ const Header = () => {
       <Button
         round
         size="small"
-        className="mr-2"
         onClick={() => router.back()}
         startIcon={<ArrowBackIosNewIcon fontSize="small" />} />
       <span className="text-black text-xl font-bold">使用加密錢包登入</span>

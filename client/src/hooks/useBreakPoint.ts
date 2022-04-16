@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useLayoutEffect } from 'react';
 import { IBreakPoints, SM, MD, LG, XL } from '@@constants/breakPoints';
 
 const getWindowWidth = () => window?.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
@@ -15,6 +15,11 @@ const getBreakPoint = (windowWidth: number) => {
 
 export default function useWindowResize(): IBreakPoints {
   const [breakPoint, setBreakPoint] = useState<IBreakPoints>(XL);
+
+  /** Init BreakPoint after window exist */
+  useLayoutEffect(() => {
+    setBreakPoint(getBreakPoint(getWindowWidth()));
+  }, []);
 
   useEffect(() => {
     function resize() {

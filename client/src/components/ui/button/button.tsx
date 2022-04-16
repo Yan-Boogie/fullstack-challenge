@@ -1,9 +1,9 @@
-import { ReactNode, useMemo, MouseEventHandler } from 'react';
-import { Button as MuiButton, IconButton } from '@mui/material';
+import { ReactNode, useMemo } from 'react';
+import { Button as MuiButton, IconButton, ButtonProps } from '@mui/material';
 import useBreakPoint from '@@hooks/useBreakPoint';
 import { LG } from '@@constants/breakPoints';
 
-interface IButton {
+interface IButton extends ButtonProps {
   className?: string;
   size?: 'small' | 'medium';
   startIcon?: ReactNode;
@@ -11,7 +11,6 @@ interface IButton {
   bgColor?: 'none' | 'primary';
   children?: ReactNode;
   round?: boolean;
-  onClick?: MouseEventHandler<HTMLElement>;
 }
 
 const btnSizeMapper = {
@@ -53,13 +52,13 @@ const Button = (props: IButton) => {
     return true;
   }, [round, windowSize, startIcon]);
 
-  console.log('isBtnRound-->\n', isBtnRound);
-
   if (isBtnRound) {
     return (
-      <IconButton className={className} size={size} {...rest}>
-        {startIcon}
-      </IconButton>
+      <div className={`${btnSizeMapper.round} ${className} flex justify-center items-center`}>
+        <IconButton size={size} {...rest}>
+          {startIcon}
+        </IconButton>
+      </div>
     );
   }
 

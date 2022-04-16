@@ -12,7 +12,7 @@ const LeftPanel = () => {
       <section className="flex justify-center items-center">
         <Image alt="" width={125} height={125} src="/matters-icon.jpg" />
       </section>
-      <section className="flex flex-col w-full h-full pl-3">
+      <section className="flex flex-col w-full h-full pl-3 items-center">
         <Button
           size="medium"
           startIcon={<Explore className="text-green-900 w-6 h-6" />}
