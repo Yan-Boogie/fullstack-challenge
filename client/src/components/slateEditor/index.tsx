@@ -20,10 +20,12 @@ export const SlateEditor = () => {
   const renderLeaf = useCallback(props => <Leaf {...props} />, [])
   const editor = useMemo(() => withHistory(withReact(createEditor())), []);
 
+  console.log('value-->\n', value);
+
   return (
     <Slate editor={editor} value={value} onChange={value => setValue(value)}>
       <Toolbar>
-        <BlockButton format="heading-one" icon={<LooksOne fontSize="small" />} />
+        <BlockButton format="heading" icon={<LooksOne fontSize="small" />} />
         <BlockButton format="heading-two" icon={<LooksTwo fontSize="small" />} />
         <BlockButton format="block-quote" icon={<FormatQuote fontSize="small" />} />
         <BlockButton format="numbered-list" icon={<FormatListNumbered fontSize="small" />} />

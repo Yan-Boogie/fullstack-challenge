@@ -45,15 +45,18 @@ export interface IBlockButton {
 }
 
 export const BlockButton = ({ format, icon }: IBlockButton) => {
-  const editor = useSlate()
+  const editor = useSlate();
+
+  console.log('activated-->\n', isBlockActive(editor, format));
+
   return (
     <Button
       round
       startIcon={icon}
-      // active={isBlockActive(editor, format)}
+      bgColor={isBlockActive(editor, format) ? 'active' : 'none'}
       onMouseDown={event => {
         event.preventDefault()
         toggleBlock(editor, format)
       }} />
-  )
+  );
 }

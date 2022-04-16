@@ -8,7 +8,7 @@ interface IButton extends ButtonProps {
   size?: 'small' | 'medium';
   startIcon?: ReactNode;
   disabled?: boolean;
-  bgColor?: 'none' | 'primary';
+  bgColor?: keyof typeof btnBGColorMapper;
   children?: ReactNode;
   round?: boolean;
 }
@@ -22,12 +22,9 @@ const btnSizeMapper = {
 const btnBGColorMapper = {
   none: '',
   primary: 'bg-green-900 hover:bg-green-700',
+  active: 'bg-amber-200 hover:bg-amber-200',
 };
 
-/**
- * @todo
- * isBtnRound ????????????????????????????????????????
- */
 const Button = (props: IButton) => {
   const {
     className = '',
@@ -55,7 +52,7 @@ const Button = (props: IButton) => {
   if (isBtnRound) {
     return (
       <div className={`${btnSizeMapper.round} ${className} flex justify-center items-center`}>
-        <IconButton size={size} {...rest}>
+        <IconButton size={size} className={`${btnBGColorMapper[`${bgColor}`]}`} {...rest}>
           {startIcon}
         </IconButton>
       </div>
