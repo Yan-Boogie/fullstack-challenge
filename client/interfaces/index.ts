@@ -9,6 +9,10 @@ export type QueriedArticleList = {
   articles: ArticleListItem[];
 };
 
+export type QueriedArticleCount = {
+  articlesCount: number;
+}
+
 export interface ApolloQueryBase<T> {
   data: T;
   loading: boolean;
@@ -16,3 +20,4 @@ export interface ApolloQueryBase<T> {
 }
 
 export type IArticleListQuery = ApolloQueryBase<QueriedArticleList>;
+export type IArticleCountQuery = ApolloQueryBase<QueriedArticleCount>;
