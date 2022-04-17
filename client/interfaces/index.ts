@@ -1,10 +1,18 @@
-// You can include shared interfaces/types in a separate file
-// and then use them in any component by importing them. For
-// example, to import the interface below do:
-//
-// import { User } from 'path/to/interfaces';
+import type { IArticle } from '@@common/article';
+import type { ApolloError } from '@apollo/client';
 
-export type User = {
-  id: number
-  name: string
+export type { IArticle };
+
+export type ArticleListItem = Omit<IArticle, 'content'>;
+
+export type QueriedArticleList = {
+  articles: ArticleListItem[];
+};
+
+export interface ApolloQueryBase<T> {
+  data: T;
+  loading: boolean;
+  error: ApolloError
 }
+
+export type IArticleListQuery = ApolloQueryBase<QueriedArticleList>;

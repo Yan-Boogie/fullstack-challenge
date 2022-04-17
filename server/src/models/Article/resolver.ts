@@ -10,6 +10,7 @@ export default class ArticleResolver {
   ) {
     return {
       id: '1234',
+      userId: '0x40558642b23Bf54549354DcfB62668Ef3F012A66',
       title: 'title',
       description: 'description',
       content: 'content',
@@ -24,12 +25,14 @@ export default class ArticleResolver {
         return [
           {
             id: '1234',
+            userId: '0x40558642b23Bf54549354DcfB62668Ef3F012A66',
             title: 'title',
             description: 'description',
             content: 'content',
           },
           {
             id: '2345',
+            userId: '0x40558642b23Bf54549354DcfB62668Ef3F012A66',
             title: 'title',
             description: 'description',
             content: 'content',

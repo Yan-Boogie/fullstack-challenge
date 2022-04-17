@@ -8,6 +8,9 @@ export default class Article implements IArticle {
   id: string = v4()
 
   @Field()
+  userId: string = ``
+
+  @Field()
   title: string = ``
 
   @Field()

@@ -13,7 +13,7 @@ const getBreakPoint = (windowWidth: number) => {
   return SM;
 };
 
-export default function useWindowResize(): IBreakPoints {
+export default function useBreakPoint(): IBreakPoints {
   const [breakPoint, setBreakPoint] = useState<IBreakPoints>(XL);
 
   /** Init BreakPoint after window exist */

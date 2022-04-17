@@ -19,6 +19,7 @@
       "@@constants/*": ["./src/constants/*"],
       "@@hooks/*": ["./src/hooks/*"],
       "@@components/*": ["./src/components/*"],
+      "@@interfaces/*": ["./interfaces/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

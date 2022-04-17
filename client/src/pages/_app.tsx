@@ -6,6 +6,13 @@ import {
   Config,
 } from '@usedapp/core';
 import { getDefaultProvider } from 'ethers';
+import { ApolloProvider } from '@apollo/client';
+
+/** API */
+import apolloClient from '../api/apollo';
+
+/** Standard Layout */
+import Layout from '@@components/layout/';
 
 import '../../styles/index.css';
 
@@ -18,9 +25,13 @@ const config: Config = {
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <DAppProvider config={config}>
-      <Component {...pageProps} />
-    </DAppProvider>
+    <ApolloProvider client={apolloClient}>
+      <DAppProvider config={config}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </DAppProvider>
+    </ApolloProvider>
   );
 }
 

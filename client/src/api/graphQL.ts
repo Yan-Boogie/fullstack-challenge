@@ -1,23 +1,23 @@
 import { gql } from "@apollo/client";
 
-export const articlesList = gql`
-  query {
+export const ARTICLE_LIST_QUERY = gql`
+  query ArticleListQuery {
     articles {
-      user_id
+      id
+      userId
       title
       description
-      content
     }
   }
 `;
 
-export const createArticle = gql`
-  mutation ($articleInput: ArticleInput) {
-    createArticle(articleInput: $articleInput) {
-      user_id
-      title
-      description
-      content
-    }
-  }
-`;
+// export const createArticle = gql`
+//   mutation ($articleInput: ArticleInput) {
+//     createArticle(articleInput: $articleInput) {
+//       user_id
+//       title
+//       description
+//       content
+//     }
+//   }
+// `;

@@ -24,8 +24,6 @@ const XlLayout = ({ children }) => {
 const Layout = ({ children }) => {
   const size = useBreakPoint();
 
-  console.log('size-->\n', size);
-
   switch (size) {
     case XL:
       return (
