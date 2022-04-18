@@ -57,6 +57,29 @@ Cons：這樣的做法會因爲 Replication lag 而導致 stale reads 的狀況�
 
 > Q: Assume you are to design a product supporting a social network, which allows users to publish articles, comment on articles, and follow other users' articles and comments. You also want this social network to be decentralized and scalable, while enabling other developers to build different tools for the network. What technologies and product would be the essential building blocks, what roles would they play, and how would you combine them together?
 
+我認爲我們可以從兩個面向去探討這個問題，分別是：
+
+1. 社群面向
+2. 技術面向
+
+### Community Aspect
+
+* 版本控管工具 —— Git
+  * Github Issues template
+  * Version update and breakchange rules
+    * 過往的經驗是如果沒有訂定清楚這些規範，專案版本就會一直在奇怪的數字上周旋，看到版本一大堆小數點只能苦笑，突然升級了一個版本又沒有清楚的告知做了哪些變動，兼容問題沒有處理好就代表工程師又要加班了
+  * git-rebase for commit squash
+* Commit message standarlization
+* Recommand Editor
+* Communities communication
+
+### Technical Aspect
+
+* p2p/decentralized file system：IPFS
+* OpenID identifying users
+* WYSIWYG editor 的選用與各類型檔案間的獨立處理
+  * 如果有完善地去處理檔案序列化的工作，讓整個轉譯過程是流暢且輕巧的，就有很大的機會能省去掉在前端做快取等額外的流程
+
 ---
 
 ## Section 3: Personal Passions and Communities
