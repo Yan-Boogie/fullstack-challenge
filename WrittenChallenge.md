@@ -26,12 +26,12 @@ Cons：除了最直觀的預算限制之外，單純的硬體設備升級也會�
 
 ### 2. 讀寫分離：製作 Read-Replicas
 
-![image1](https://imgur.com/ZlVsNf0)
+![image1](https://i.imgur.com/ZlVsNf0.png)
 
 我們能以製作 Read-Replicas 的方式，降低單一 Database 的 reading throughput 來解決大量的讀取需求。
 Cons：這樣的做法會因爲 Replication lag 而導致 stale reads 的狀況發生。我們能透過 Postgres WASL 來解決這項問題。
 
-![image2](https://imgur.com/n88PXFK)
+![image2](https://i.imgur.com/n88PXFK.png)
 
 透過 'streaming' 的方式 —— 建立 primary 與 replicas 之間的 open connection 來大幅縮短 WAL segmants 的傳遞。
 
