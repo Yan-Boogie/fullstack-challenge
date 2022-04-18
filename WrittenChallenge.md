@@ -1,20 +1,59 @@
 # Full-stack Engineer Written Challenge
 
-Please answer one or more questions on Section 1 and Section 2, and two or more questions in Section 3. There are no word limits on the answers; you can keep them as concise as possible as long as you have demostrate your thoughts. 
+Please answer one or more questions on Section 1 and Section 2, and two or more questions in Section 3. There are no word limits on the answers; you can keep them as concise as possible as long as you have demostrate your thoughts.
 
-You can directly write your answers in your branch following the questions. 
+You can directly write your answers in your branch following the questions.
 
 ## Section 1: Architectural Design
 
 *Please answer at lease one of the following questions.*
 
-* Assume that you are building a discussion forum similar with [Hacker News](https://news.ycombinator.com/). The product will be very popular, and your team made the following projection: monthly traffic of 30k page views and 5k posts in the first year, and monthly traffic of 300m page views and 500k posts in the second year. How would you choose your frontend and backend technologies, infrastructures and deploying methods? What methods will you use in scaling your platform and envovling the infrastructures?
+```
+Assume that you have an application that is growing very fast. It uses PostgreSQL as data storage, and the growing traffic is making write and read operations slow. What strategies would you take to scale your database horizontally and vertically?
+```
 
-* Assume that you are building a backend service for a medical company. When a request come in, this service needs to take the user input, pass it to a pre-trained computational model, and return the output to the user. The service needs to handle a high request frequency with uncertian average traffic volumne, and the computational model needs to process large amount of data in parallel. How would you design this service and choose the building blocks to achieve the above requirements?
+The options we have:
 
+* Vertical scaling
+* 讀寫分離：製作 read-replica ，透過 WAL 處理 stale read 問題
+* 橫切分表：Partitioning & Sharding
 
-* Assume that you have an application that is growing very fast. It uses PostgreSQL as data storage, and the growing traffic is making write and read operations slow. What strategies would you take to scale your database horizontally and vertically?
+### 1. Vertical Scaling
 
+最基本的暴力解——升級自家硬體設備。
+Pros：不會異動無論是程式碼或是架構，以金錢換取時間的概念。
+Cons：除了最直觀的預算限制之外，單純的硬體設備升級也會遇到升級天花板。若是架設在一些雲端服務的項目中也要將 ready queue 所導致的 downtime 考慮進來，另外雲端服務上的硬體設備升級其金錢成本往往也是成指數型成長的。
+
+### 2. 讀寫分離：製作 Read-Replicas
+
+![image1](https://imgur.com/ZlVsNf0)
+
+我們能以製作 Read-Replicas 的方式，降低單一 Database 的 reading throughput 來解決大量的讀取需求。
+Cons：這樣的做法會因爲 Replication lag 而導致 stale reads 的狀況發生。我們能透過 Postgres WASL 來解決這項問題。
+
+![image2](https://imgur.com/n88PXFK)
+
+透過 'streaming' 的方式 —— 建立 primary 與 replicas 之間的 open connection 來大幅縮短 WAL segmants 的傳遞。
+
+### 3. 橫切分表：Partitioning & Sharding
+
+橫切分表主要的目的為減少單張 table 的 row size 大小，解決 table index tree 過於肥大的問題。
+
+我們能將相同結構的 row data 以跨表，甚至是跨 DB 的方式儲存來降低單張表所需花費的 access time 。
+
+拆分的邏輯能視資料類型來決定，我們能以：
+
+* Time-based 的方式拆出等量資料的 shards ，甚至是拆成冷熱資料建立 history table 。
+* 以 hashed 或其他演算法形式拆成 shards。
+* 另外建立 nickname column 將資料進行 cluster ，將屬性相同的存進同一組 shards 。
+
+最後我們能搭配 Postgres10 新增的 **PARTITION** tag 處理跨表的 partition 以及 **FOREIGHN DATA WRAPPER** & **postgres_fdw** 將延伸出的作業處理放在資料層完成，也能選擇放在 application level 解決。
+後者的自由度較大，卻也增加 app 層的專案規模與複雜度，除了要為 Client side 建立 Proxy service 之外，還有其他的延伸問題諸如：
+
+* 跨 DB 的關聯查詢 —— join 的問題
+* 跨 DB 的分散式事務處理
+* 排序與分頁的相關問題
+* 分散式的 ID 處理 —— 無法只靠 table id auto increment 作為 PK ，會出現 id 的重複。
 
 ## Section 2: Distributed Systems and Web3
 
@@ -23,7 +62,6 @@ You can directly write your answers in your branch following the questions.
 * Assume you are to design a product supporting a social network, which allows users to publish articles, comment on articles, and follow other users' articles and comments. You also want this social network to be decentralized and scalable, while enabling other developers to build different tools for the network. What technologies and product would be the essential building blocks, what roles would they play, and how would you combine them together?
 
 * Assume you are to design a product for crowdfunding creative projects with NFTs, where the creator pre-sale the ownership of the final result as NFTs. From minting the tokens to delivering the final result, what are the UX and techonogical challenges you forsee, and what do you think it takes to solve these problems well?
-
 
 ## Section 3: Personal Passions and Communities
 
@@ -56,7 +94,7 @@ You can directly write your answers in your branch following the questions.
 這些全都與純粹的前端畫面切排版相差甚遠，也埋下了我對專案的架構規劃上的興趣小種子，讓我樂於去挖掘大型專案底層的實作。
 
 而最近除了開始近幾天 Facebook 開源了自家使用的 lexical library 自己有稍稍玩一下它之外，也花了一些時間去學習 Rust 這門語言。
-沒有什麼過於偉大的原因，就只是單純想學它覺得它挺潮的，順便回歸自大學時期學完就沒再碰過的 C, C++ 等低階語言的懷抱，也希望未來能為自己開出一扇系統性面向或 WASM 的大門。
+沒有什麼過於偉大的原因，就只是單純想學它覺得它挺潮的，順便回歸自大學時期學完就沒再碰過的 C, C++ 等低階語言的懷抱，也希望未來能為自己開出一扇系統性面向或 WASM 又或者是 Solana 的大門。
 
 * What are some open source projects that you are involved with, or enjoy working on? What aspect of the project (e.g. architectural design, scope, community vibe, organization) makes it enjoyable or admirable?
 
