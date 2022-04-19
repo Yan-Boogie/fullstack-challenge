@@ -13,6 +13,6 @@ type Article {
 
 type Query {
   article(id: String!): Article!
-  articles(skip: Float, take: Float): [Article!]!
+  articles(limit: Float!, offset: Float!): [Article!]!
   articlesCount: Float!
 }
