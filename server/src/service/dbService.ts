@@ -41,6 +41,10 @@ class DbService {
         this.ipfs = await IPFSGateway.create();
         this.db = await OrbitDB.createInstance(this.ipfs);
         this.store = await this.db.keyvalue('articleStore');
+
+        await this.store.load();
+
+        await Promise.all(mockArticles.map(el => this.store.put(el.id, el)));
     }
 }
 

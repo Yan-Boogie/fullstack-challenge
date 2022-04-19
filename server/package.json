@@ -15,7 +15,7 @@
     "ipfs": "^0.55.4",
     "kcors": "^2.2.2",
     "koa": "^2.11.0",
-    "orbit-db": "^0.24.2",
+    "orbit-db": "^0.26.0",
     "reflect-metadata": "^0.1.13",
     "ts-node": "^10.7.0",
     "ts-node-dev": "^1.1.8",
