@@ -3,12 +3,9 @@ import kcors from 'kcors';
 import http from 'http';
 import { ApolloServer } from 'apollo-server-koa';
 import buildSchema from './schema';
-import debug from 'debug';
 import { PORT } from './constants/port';
 import { NODE_ENV } from './constants/nodeEnv';
 import dbService from './service/dbService';
-
-const debugServer = debug('MFSC:Server');
 
 // init server
 const main = async () => {
@@ -24,12 +21,12 @@ const main = async () => {
 
   server.applyMiddleware({ app });
 
-  await dbService.init();
-
   const httpServer = http.createServer(app.callback());
 
   httpServer.listen(PORT, async () => {
-    debugServer(`MFSC Server listen on port: ${PORT}`);
+    console.log(`MFSC Server listen on port: ${PORT}`);
+
+    await dbService.init();
   });
 };
 

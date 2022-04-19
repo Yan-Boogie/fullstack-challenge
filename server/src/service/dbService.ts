@@ -10,7 +10,7 @@ import KeyValueStore from 'orbit-db-kvstore';
  * - Move the mock to the composition root
  */
 import Article from '../models/Article/schema';
-import mockArticles from '../mock/articles';
+import { articles as mockArticles } from '../mock/articles';
 
 class DbService {
     private ipfs: IPFS;
@@ -41,10 +41,6 @@ class DbService {
         this.store = await this.db.keyvalue("articleStore");
 
         await this.store.load();
-
-        for (let i = 0; i < mockArticles.length; i++) {
-          await this.upsertArticle(mockArticles[i]);
-        }
     }
 }
 
