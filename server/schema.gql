@@ -11,6 +11,18 @@ type Article {
   userId: String!
 }
 
+input ArticleInput {
+  content: String = ""
+  description: String = ""
+  title: String = ""
+  userId: String = ""
+}
+
+type Mutation {
+  addArticle(articleInput: ArticleInput!): Article!
+  removeArticle(articleId: String!): String!
+}
+
 type Query {
   article(id: String!): Article!
   articles(limit: Float!, offset: Float!): [Article!]!

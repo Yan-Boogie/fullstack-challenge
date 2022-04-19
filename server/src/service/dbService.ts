@@ -1,7 +1,9 @@
 import * as IPFSGateway from 'ipfs';
 import type { IPFS } from 'ipfs'; 
-import OrbitDB  from 'orbit-db';
+import { OrbitDB as IOrbitDB } from 'orbit-db';
 import KeyValueStore from 'orbit-db-kvstore';
+
+const OrbitDB = require('orbit-db');
 
 /**
  * @todos
@@ -9,12 +11,12 @@ import KeyValueStore from 'orbit-db-kvstore';
  * - Add type-di for DI pattern
  * - Move the mock to the composition root
  */
-import Article from '../models/Article/schema';
+import { Article } from '../models/Article/schema';
 import { articles as mockArticles } from '../mock/articles';
 
 class DbService {
     private ipfs: IPFS;
-    private db: OrbitDB;
+    private db: IOrbitDB;
     private store: KeyValueStore<Article>;
 
     getArticleById = async (articleId: string)=> {
@@ -38,9 +40,7 @@ class DbService {
     init = async () => {
         this.ipfs = await IPFSGateway.create();
         this.db = await OrbitDB.createInstance(this.ipfs);
-        this.store = await this.db.keyvalue("articleStore");
-
-        await this.store.load();
+        this.store = await this.db.keyvalue('articleStore');
     }
 }
 

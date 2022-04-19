@@ -1,6 +1,7 @@
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
-import Article from "./schema";
-
+import { v4 } from "uuid";
+import { Article, ArticleInput } from "./schema";
+import dbService from '../../service/dbService';
 @Resolver()
 export default class ArticleResolver {
 
@@ -8,13 +9,9 @@ export default class ArticleResolver {
   async article(
     @Arg('id') id: string,
   ) {
-    return {
-      id: '1234',
-      userId: '0x40558642b23Bf54549354DcfB62668Ef3F012A66',
-      title: 'title',
-      description: 'description',
-      content: 'content',
-    };
+    const article = await dbService.getArticleById(id);
+
+    return article;
   }
 
   @Query(()=> ([Article]))
@@ -22,84 +19,35 @@ export default class ArticleResolver {
         @Arg("offset", {nullable: false}) offset: number,
         @Arg("limit", {nullable: false}) limit: number,
     ) {
-        const mock = [
-          {
-            id: '1234',
-            userId: '0x40558642b23Bf54549354DcfB62668Ef3F012A66',
-            title: 'title01',
-            description: 'description',
-            content: 'content',
-          },
-          {
-            id: '2345',
-            userId: '0x40558642b23Bf54549354DcfB62668Ef3F012A66',
-            title: 'title02',
-            description: 'description',
-            content: 'content',
-          },
-          {
-            id: '3456',
-            userId: '0x40558642b23Bf54549354DcfB62668Ef3F012A66',
-            title: 'title03',
-            description: 'description',
-            content: 'content',
-          },
-          {
-            id: '4567',
-            userId: '0x40558642b23Bf54549354DcfB62668Ef3F012A66',
-            title: 'title04',
-            description: 'description',
-            content: 'content',
-          },
-          {
-            id: '5678',
-            userId: '0x40558642b23Bf54549354DcfB62668Ef3F012A66',
-            title: 'title05',
-            description: 'description',
-            content: 'content',
-          },
-          {
-            id: '6789',
-            userId: '0x40558642b23Bf54549354DcfB62668Ef3F012A66',
-            title: 'title06',
-            description: 'description',
-            content: 'content',
-          },
-          {
-            id: '7899',
-            userId: '0x40558642b23Bf54549354DcfB62668Ef3F012A66',
-            title: 'title07',
-            description: 'description',
-            content: 'content',
-          },
-          {
-            id: '1111',
-            userId: '0x40558642b23Bf54549354DcfB62668Ef3F012A66',
-            title: 'title08',
-            description: 'description',
-            content: 'content',
-          },
-          {
-            id: '2222',
-            userId: '0x40558642b23Bf54549354DcfB62668Ef3F012A66',
-            title: 'title09',
-            description: 'description',
-            content: 'content',
-          },
-          {
-            id: '3333',
-            userId: '0x40558642b23Bf54549354DcfB62668Ef3F012A66',
-            title: 'title10',
-            description: 'description',
-            content: 'content',
-          },
-        ];
+        const articles = await dbService.getAllArticles();
 
-        return mock.slice(offset, limit + offset);
+        return articles.slice(offset, limit + offset);
     }
 
-    @Query(()=> (Number))
-    async articlesCount() {
-        return 10;
-    }
+  @Query(()=> (Number))
+  async articlesCount() {
+      const articles = await dbService.getAllArticles();
+
+      return articles.length;
+  }
+
+  @Mutation(()=> (Article))
+  async addArticle(
+      @Arg("articleInput") articleInput: ArticleInput
+  ) {
+      const id = v4();
+
+      await dbService.upsertArticle({ id, ...articleInput });
+
+      return await dbService.getArticleById(id);
+  }
+
+  @Mutation(()=> (String))
+  async removeArticle(
+      @Arg("articleId") articleId: string
+  ) {
+      await dbService.removeArticle(articleId);
+
+      return articleId;
+  }
 };

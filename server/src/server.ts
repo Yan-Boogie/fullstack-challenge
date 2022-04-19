@@ -24,9 +24,9 @@ const main = async () => {
   const httpServer = http.createServer(app.callback());
 
   httpServer.listen(PORT, async () => {
-    console.log(`MFSC Server listen on port: ${PORT}`);
-
     await dbService.init();
+
+    console.log(`MFSC Server listen on port: ${PORT}`);
   });
 };
 
