@@ -22,7 +22,7 @@ const Header = (props: IHeader) => {
         onClick={() => router.back()}
         startIcon={<ArrowBackIosNewIcon fontSize="small" />} />
       {loading || error ? <CircularProgress className="text-gray-400 ml-6" size={24} /> : (
-        <span>{data.article.userId}</span>
+        <span className="text-sm leading-tight text-left">{data.article.userId}</span>
       )}
     </section>
   );

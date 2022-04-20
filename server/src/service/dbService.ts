@@ -44,7 +44,7 @@ class DbService {
 
         await this.store.load();
 
-        await Promise.all(mockArticles.map(el => this.store.put(el.id, el)));
+        // await Promise.all(mockArticles.map(el => this.store.put(el.id, el)));
     }
 }
 

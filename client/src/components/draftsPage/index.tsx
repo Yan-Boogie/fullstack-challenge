@@ -41,8 +41,6 @@ const Drafts = (props: IDrafts) => {
         },
       },
     });
-
-    console.log('api-->\n', title, description, content, account);
   };
 
   const editorRef = useRef<SlateEditorRef>({ getEditor: () => null });

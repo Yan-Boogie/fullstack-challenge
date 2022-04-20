@@ -15,7 +15,7 @@ const Pagination = (props: IPagination) => {
   } = props;
 
   const leftBtnDisabled = page === 0;
-  const rightBtnDisabled = page === pageCount - 1;
+  const rightBtnDisabled = page === pageCount - 1 || !pageCount;
 
   return (
     <div className="flex flex-row justify-center p-2 w-full">

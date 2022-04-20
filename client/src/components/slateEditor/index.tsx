@@ -18,8 +18,8 @@ export type SlateEditorRef = {
 export const SlateEditor = React.forwardRef<SlateEditorRef>(
   (_props, ref) => {
     const [value, setValue] = useState<Descendant[]>(initialValue);
-    const renderElement = useCallback(props => <Element {...props} />, [])
-    const renderLeaf = useCallback(props => <Leaf {...props} />, [])
+    const renderElement = useCallback(props => <Element {...props} />, []);
+    const renderLeaf = useCallback(props => <Leaf {...props} />, []);
     const editor = useMemo(() => withHistory(withReact(createEditor())), []);
 
     useImperativeHandle(ref, () => ({ getEditor: () => editor }));
@@ -44,5 +44,27 @@ export const SlateEditor = React.forwardRef<SlateEditorRef>(
     );
   }
 );
+
+export interface ISlateSerializer {
+  article: Descendant[];
+}
+
+export const SlateSerializer = (props: ISlateSerializer) => {
+  const { article } = props;
+
+  const editor = useMemo(() => withReact(createEditor()), []);
+  const renderElement = useCallback(props => <Element {...props} />, []);
+  const renderLeaf = useCallback(props => <Leaf {...props} />, []);
+
+  return (
+    <Slate editor={editor} value={article}>
+      <Editable
+        readOnly
+        className="w-full h-full"
+        renderElement={renderElement}
+        renderLeaf={renderLeaf} />
+    </Slate>
+  );
+}
 
 export default SlateEditor;
