@@ -4,6 +4,7 @@ import useBreakPoint from '@@hooks/useBreakPoint';
 import LeftPanel from './components/LeftPanel';
 import RightPanel from './components/RightPanel';
 import Footer from './components/Footer';
+import Snackbar from '../snackbar';
 
 export interface ILayout {
   children: ReactNode;
@@ -52,12 +53,11 @@ const SMLayout = ({ children }: ILayout) => {
 const Layout = ({ children }: ILayout) => {
   const size = useBreakPoint();
 
-  console.log('size-->\n', size);
-
   switch (size) {
     case XL:
       return (
         <XlLayout>
+          <Snackbar />
           {children}
         </XlLayout>
       );
@@ -66,6 +66,7 @@ const Layout = ({ children }: ILayout) => {
     case MD:
       return (
         <LGLayout>
+          <Snackbar />
           {children}
         </LGLayout>
       );
@@ -73,6 +74,7 @@ const Layout = ({ children }: ILayout) => {
 
   return (
     <SMLayout>
+      <Snackbar />
       {children}
     </SMLayout>
   )

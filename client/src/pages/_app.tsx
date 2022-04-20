@@ -11,8 +11,9 @@ import { ApolloProvider } from '@apollo/client';
 /** API */
 import apolloClient from '../api/apollo';
 
-/** Standard Layout */
+/** Components */
 import Layout from '@@components/layout/';
+import { SnackbarProvider } from '@@components/snackbar';
 
 import '../../styles/index.css';
 
@@ -27,9 +28,11 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ApolloProvider client={apolloClient}>
       <DAppProvider config={config}>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <SnackbarProvider>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </SnackbarProvider>
       </DAppProvider>
     </ApolloProvider>
   );

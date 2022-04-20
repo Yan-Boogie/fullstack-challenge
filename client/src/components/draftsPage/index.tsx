@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { Editor, Path } from 'slate';
 import { useEthers } from '@usedapp/core';
 import type { IArticleInput } from '@@common/article';
+import { useSnackbar } from '@@components/snackbar';
 import SlateEditor, { SlateEditorRef } from '../slateEditor';
 import Header from './components/Header';
 
@@ -14,13 +15,15 @@ const getConcatedString = (editor: Editor, path: Path): string => Editor.string(
 const Drafts = (props: IDrafts) => {
   const { addArticle } = props;
   const { account } = useEthers();
+  const [, setAlertModel] = useSnackbar();
 
   const onSubmit = () => {
     const editor = editorRef.current.getEditor();
 
     /** Error handle */
     if (editor.children.length < 3) {
-      console.log('children length < 3\n');
+      setAlertModel({ type: 'error', open: true, message: '請確實填入標題、副標題、內文' });
+
       return;
     }
 
