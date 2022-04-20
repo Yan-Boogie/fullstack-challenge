@@ -2,7 +2,7 @@
 
 ## Video Demo
 
-[Video Link](https://www.youtube.com/watch?v=v-szzhi4O9M)
+[Video Link](https://youtu.be/V-neeSnB6rk)
 
 The challenge consists of two parts:
 * [Code Challenge](./CodeChallenge.md)

@@ -13,6 +13,14 @@ const Drafts = () => {
   const router = useRouter();
   const [, setModel] = useSnackbar();
   const [addArticle, { loading, error }] = useMutation<{ addArticle: IArticleInput}>(ADD_ARTICLE_MUTATION, {
+    onCompleted() {
+      router.push('/');
+
+      setModel({ message: '成功送出', type: 'success', open: true });
+    },
+    onError(err) {
+      setModel({ message: `送出失敗: ${err}`, type: 'error', open: true });
+    },
     update(cache, { data }) {
       const cacheCount = cache.readQuery<QueriedArticleCount>({
         query: ARTICLE_AMOUNT_QUERY,
@@ -59,15 +67,7 @@ const Drafts = () => {
         <CircularProgress className="text-gray-400 mt-6" size={24} />
       </div>
     ) : (
-      <DraftsComponent addArticle={(props: { variables: { articleInput: IArticleInput }}) => {
-        addArticle(props).then(() => {
-          router.push('/');
-
-          setModel({ message: '成功送出', type: 'success', open: true });
-        }).catch((err) => {
-          setModel({ message: `送出失敗: ${err}`, type: 'error', open: true });
-        });
-      }} />
+      <DraftsComponent addArticle={(props: { variables: { articleInput: IArticleInput }}) => addArticle(props)} />
     )
   );
 };
