@@ -46,13 +46,13 @@ const Snackbar = () => {
     <MuiSnackbar
       className="w-96"
       anchorOrigin={{ vertical: VERTICAL, horizontal: HORIZONTAL }}
-      onClose={() => setAlertModel({ message: '', type: 'success', open: false })}
+      onClose={() => setAlertModel({ message: '', type: alertModel.type, open: false })}
       open={alertModel.open}>
       <MuiAlert
         className="w-full flex items-center"
         severity={alertModel.type}
         action={(
-          <Button round onClick={() => setAlertModel({ message: '', type: 'success', open: false })} startIcon={<CloseIcon fontSize="small" />} />
+          <Button round onClick={() => setAlertModel({ message: '', type: alertModel.type, open: false })} startIcon={<CloseIcon fontSize="small" />} />
         )}>
         <span>{alertModel.message}</span>
       </MuiAlert>
