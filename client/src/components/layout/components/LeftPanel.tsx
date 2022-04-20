@@ -21,7 +21,7 @@ const LeftPanel = () => {
           )
         }
       </section>
-      <section className="flex flex-col w-full h-full pl-3 md:p-0 items-center md:mt-6">
+      <section className="flex flex-col w-full h-full pl-3 md:p-0 items-center mt-0 sm:mt-6">
         <Button
           className="mb-8"
           size="medium"

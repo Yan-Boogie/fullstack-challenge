@@ -1,4 +1,5 @@
-import { useCallback, useMemo, useState } from 'react';
+/* eslint-disable react/display-name */
+import React, { useCallback, useMemo, useState, useImperativeHandle } from 'react';
 import isHotkey from 'is-hotkey';
 import { Editable, withReact, useSlate, Slate } from 'slate-react';
 import {
@@ -14,41 +15,47 @@ import { HOTKEYS } from './constants/hotKeys';
 import { initialValue } from './mock';
 import { Element, Leaf, Toolbar, BlockButton } from './components';
 
-export const SlateEditor = () => {
-  const [value, setValue] = useState<Descendant[]>(initialValue);
-  const renderElement = useCallback(props => <Element {...props} />, [])
-  const renderLeaf = useCallback(props => <Leaf {...props} />, [])
-  const editor = useMemo(() => withHistory(withReact(createEditor())), []);
-
-  console.log('value-->\n', value);
-
-  return (
-    <Slate editor={editor} value={value} onChange={value => setValue(value)}>
-      <Toolbar>
-        <BlockButton format="heading" icon={<LooksOne fontSize="small" />} />
-        <BlockButton format="heading-two" icon={<LooksTwo fontSize="small" />} />
-        <BlockButton format="block-quote" icon={<FormatQuote fontSize="small" />} />
-        <BlockButton format="numbered-list" icon={<FormatListNumbered fontSize="small" />} />
-        <BlockButton format="bulleted-list" icon={<FormatListBulleted fontSize="small" />} />
-      </Toolbar>
-      <Editable
-        renderElement={renderElement}
-        renderLeaf={renderLeaf}
-        placeholder="Enter some rich text…"
-        spellCheck
-        autoFocus
-        // onKeyDown={event => {
-        //   for (const hotkey in HOTKEYS) {
-        //     if (isHotkey(hotkey, event as any)) {
-        //       event.preventDefault()
-        //       const mark = HOTKEYS[hotkey]
-        //       toggleMark(editor, mark)
-        //     }
-        //   }
-        // }}
-      />
-    </Slate>
-  );
+export type SlateEditorRef = {
+  getEditor: () => Editor;
 };
+
+export const SlateEditor = React.forwardRef<SlateEditorRef>(
+  (_props, ref) => {
+    const [value, setValue] = useState<Descendant[]>(initialValue);
+    const renderElement = useCallback(props => <Element {...props} />, [])
+    const renderLeaf = useCallback(props => <Leaf {...props} />, [])
+    const editor = useMemo(() => withHistory(withReact(createEditor())), []);
+
+    useImperativeHandle(ref, () => ({ getEditor: () => editor }));
+  
+    return (
+      <Slate editor={editor} value={value} onChange={value => setValue(value)}>
+        <Toolbar>
+          <BlockButton format="heading" icon={<LooksOne fontSize="small" />} />
+          <BlockButton format="heading-two" icon={<LooksTwo fontSize="small" />} />
+          <BlockButton format="block-quote" icon={<FormatQuote fontSize="small" />} />
+          <BlockButton format="numbered-list" icon={<FormatListNumbered fontSize="small" />} />
+          <BlockButton format="bulleted-list" icon={<FormatListBulleted fontSize="small" />} />
+        </Toolbar>
+        <Editable
+          renderElement={renderElement}
+          renderLeaf={renderLeaf}
+          placeholder="Enter some rich text…"
+          spellCheck
+          autoFocus
+          // onKeyDown={event => {
+          //   for (const hotkey in HOTKEYS) {
+          //     if (isHotkey(hotkey, event as any)) {
+          //       event.preventDefault()
+          //       const mark = HOTKEYS[hotkey]
+          //       toggleMark(editor, mark)
+          //     }
+          //   }
+          // }}
+        />
+      </Slate>
+    );
+  }
+);
 
 export default SlateEditor;

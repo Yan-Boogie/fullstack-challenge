@@ -23,13 +23,13 @@ export const ARTICLE_AMOUNT_QUERY = gql`
   }
 `;
 
-// export const createArticle = gql`
-//   mutation ($articleInput: ArticleInput) {
-//     createArticle(articleInput: $articleInput) {
-//       user_id
-//       title
-//       description
-//       content
-//     }
-//   }
-// `;
+export const ADD_ARTICLE_MUTATION = gql`
+  mutation AddArticleMutation ($articleInput: ArticleInput!) {
+    addArticle(articleInput: $articleInput) {
+      userId
+      title
+      description
+      content
+    }
+  }
+`;

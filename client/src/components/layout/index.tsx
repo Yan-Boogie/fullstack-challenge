@@ -42,7 +42,7 @@ const LGLayout = ({ children }: ILayout) => {
 
 const SMLayout = ({ children }: ILayout) => {
   return (
-    <div className="w-screen h-screen">
+    <div className="w-screen h-screen py-4">
       {children}
       <Footer />
     </div>

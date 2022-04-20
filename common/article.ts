@@ -5,3 +5,5 @@ export interface IArticle {
   description: string;
   content: string;
 }
+
+export interface IArticleInput extends Omit<IArticle, 'id'> {}

@@ -1,6 +1,6 @@
 import { Field, ObjectType, InputType } from "type-graphql";
 import {v4} from "uuid";
-import { IArticle } from '@@common/article';
+import { IArticle, IArticleInput } from '@@common/article';
 
 @ObjectType()
 export class Article implements IArticle {
@@ -21,7 +21,7 @@ export class Article implements IArticle {
 }
 
 @InputType()
-export class ArticleInput implements Omit<IArticle, 'id'> {
+export class ArticleInput implements IArticleInput {
   @Field()
   userId: string = ``
 
