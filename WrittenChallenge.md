@@ -65,21 +65,45 @@ Cons：這樣的做法會因爲 Replication lag 而導致 stale reads 的狀況�
 
 ### Community Aspect
 
-* 版本控管工具 —— Git
-  * Github Issues template
-  * Version update and breakchange rules
-    * 過往的經驗是如果沒有訂定清楚這些規範，專案版本就會一直在奇怪的數字上周旋，看到版本一大堆小數點只能苦笑，突然升級了一個版本又沒有清楚的告知做了哪些變動，兼容問題沒有處理好就代表工程師又要加班了
-  * git-rebase for commit squash
-* Commit message standarlization
-* Recommand Editor
-* Communities communication
+#### 版本控管工具 —— Git
+
+首先版本控管工具是必須的，除了選定使用的平台如：Github、Gitlab，遵循選定的 Workflow ，Branch ruling 等以外，下方我也條列出一些值得投資的細節：
+
+* **Issues Template**
+
+只要是知名的大型 Open-Source 專案幾乎都會要求社群上的共同開發者遵守 Template 格式發布 Issue，例如訂定 Issue types 、 Bug issues 要提供 reproduce 方法、預期結果與實際結果。
+初期 Issues 還少時可能看不出差別甚至覺得多此一舉，但這就跟架專案一樣，隨著 Issues 的規模愈來愈龐大，加快理解單個 issue 的重要性會越來越高，也能更容易去辨認 duplicated issues 。
+
+* **Version update 與 Breakchange rules**
+
+除了說明清楚 Beta 與正式版本之間的差別以外，也可以另外拉出一個 Issue Template 專門發布 Break Change content ，細心一點也能去制定各個小數點間的 update 分別代表哪一個面向的更新。
+往的經驗是如果沒有訂定清楚這些規範，專案版本就會一直在奇怪的數字上周旋，看到版本一大堆小數點只能苦笑，突然升級了一個版本又沒有清楚的告知做了哪些變動，兼容問題沒有處理好就代表工程師又要加班了。
+
+* **Commit rule**
+
+整理 commit 與 PR 規則也是很重要的一環。
+
+可以依照目前主流的 angular commit message 套用現成的 implementation 如 Commitizen 搭配 Husky 做 pre-commit 之類。避免意義不明的 commit 出現。
+
+![image3](https://i.imgur.com/SfGWbT8.jpg)
+
+也能善用 git-rebase 的 commit squash 去壓縮每組 pr ，後續要搭配自動化更新 commit log 相關的工具時也會更好管理。
+
+* **Communities communication**
+
+以目前區塊鏈領域來說， Discord 社群基本上已經是必須的，這類型的平台提供了項目方拉近他們與社群間的距離，不論是能更直接的宣布事項或是能更直接地回答使用者一些基本的問題等，都凸顯了它的重要性。
 
 ### Technical Aspect
 
-* p2p/decentralized file system：IPFS
-* OpenID identifying users
-* WYSIWYG editor 的選用與各類型檔案間的獨立處理
-  * 如果有完善地去處理檔案序列化的工作，讓整個轉譯過程是流暢且輕巧的，就有很大的機會能省去掉在前端做快取等額外的流程
+* **p2p/decentralized file system**
+
+既然希望是去中心化的，那麼一個 p2p 的文件系統理所當然是必須的，而 IPFS 就是一個現成，也是目前主流的選項。
+
+* **WYSIWYG editor 的選用與各類型檔案間的獨立處理**
+
+因為平台的主要賣點是提供作家進行文字創作的地方，那麼編輯器自然得要有一定水平才行。
+雖然考量到成本，不太可能一開始就從 0 尻出完整的編輯器，我們卻能從需求出發去尋找目前市場上現有的套件定好抽象化的架構做適當的的依附，未來產品擴張時再視需求展開拔除的計畫。
+關於這項主題我們能在下一次的面試中做更詳細一點的討論。
 
 ---
 
