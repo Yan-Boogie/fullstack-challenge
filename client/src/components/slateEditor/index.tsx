@@ -1,17 +1,13 @@
 /* eslint-disable react/display-name */
 import React, { useCallback, useMemo, useState, useImperativeHandle } from 'react';
-import isHotkey from 'is-hotkey';
-import { Editable, withReact, useSlate, Slate } from 'slate-react';
+import { Editable, withReact, Slate } from 'slate-react';
 import {
   Editor,
-  Transforms,
   createEditor,
   Descendant,
-  Element as SlateElement,
 } from 'slate';
 import { withHistory } from 'slate-history';
 import { LooksOne, LooksTwo, FormatQuote, FormatListNumbered, FormatListBulleted } from '@mui/icons-material';
-import { HOTKEYS } from './constants/hotKeys';
 import { initialValue } from './mock';
 import { Element, Leaf, Toolbar, BlockButton } from './components';
 
@@ -43,15 +39,6 @@ export const SlateEditor = React.forwardRef<SlateEditorRef>(
           placeholder="Enter some rich text…"
           spellCheck
           autoFocus
-          // onKeyDown={event => {
-          //   for (const hotkey in HOTKEYS) {
-          //     if (isHotkey(hotkey, event as any)) {
-          //       event.preventDefault()
-          //       const mark = HOTKEYS[hotkey]
-          //       toggleMark(editor, mark)
-          //     }
-          //   }
-          // }}
         />
       </Slate>
     );

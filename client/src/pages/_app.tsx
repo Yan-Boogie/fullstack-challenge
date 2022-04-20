@@ -1,5 +1,4 @@
 import React from 'react';
-import { AppProps } from 'next/app';
 import {
   Mainnet,
   DAppProvider,
@@ -24,7 +23,13 @@ const config: Config = {
   },
 };
 
-function MyApp({ Component, pageProps }: AppProps) {
+interface IApp {
+  Component: () => JSX.Element;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  pageProps: any;
+}
+
+function MyApp({ Component, pageProps }: IApp) {
   return (
     <ApolloProvider client={apolloClient}>
       <DAppProvider config={config}>

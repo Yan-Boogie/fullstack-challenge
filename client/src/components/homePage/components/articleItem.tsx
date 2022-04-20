@@ -4,7 +4,7 @@ import { ArticleListItem } from '@@interfaces/index';
 export type IArticleItem = Omit<ArticleListItem, 'id'>;
 
 const ArticleItem = (props: IArticleItem) => {
-  const { title, userId, description, bannerNode } = props;
+  const { title, userId, description } = props;
 
   return (
     <ButtonBase
