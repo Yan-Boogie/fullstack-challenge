@@ -1,5 +1,9 @@
 # Full-stack Engineer Challenge
 
+## Video Demo
+
+[Video Link](https://www.youtube.com/watch?v=v-szzhi4O9M)
+
 The challenge consists of two parts:
 * [Code Challenge](./CodeChallenge.md)
 * [Written Challenge](./WrittenChallenge.md)
