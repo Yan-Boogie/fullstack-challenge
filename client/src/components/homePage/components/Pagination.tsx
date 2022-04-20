@@ -14,8 +14,6 @@ const Pagination = (props: IPagination) => {
     setPage,
   } = props;
 
-  console.log('page-->\n', page);
-
   const leftBtnDisabled = page === 0;
   const rightBtnDisabled = page === pageCount - 1;
 

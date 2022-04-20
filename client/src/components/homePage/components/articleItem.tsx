@@ -1,13 +1,16 @@
+import { useRouter } from 'next/router';
 import ButtonBase from '@mui/material/ButtonBase';
 import { ArticleListItem } from '@@interfaces/index';
 
-export type IArticleItem = Omit<ArticleListItem, 'id'>;
+export type IArticleItem = ArticleListItem;
 
 const ArticleItem = (props: IArticleItem) => {
-  const { title, userId, description } = props;
+  const { id, title, userId, description } = props;
+  const router = useRouter();
 
   return (
     <ButtonBase
+      onClick={() => router.push(`/article/${id}`)}
       className="w-full h-48 p-4 hover:bg-neutral-100 duration-150">
       <div className="w-full h-full grid grid-rows-[56px_auto_74px]">
         <h3 className="font-bold text-lg text-left">{title}</h3>

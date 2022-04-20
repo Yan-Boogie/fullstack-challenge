@@ -23,6 +23,22 @@ export const ARTICLE_AMOUNT_QUERY = gql`
   }
 `;
 
+export const ARTICLE_QUERY = gql`
+  query ArticleQuery(
+    $id: String!
+  ) {
+    article (
+      id: $id
+    ) {
+      id
+      userId
+      title
+      description
+      content
+    }
+  }
+`;
+
 export const ADD_ARTICLE_MUTATION = gql`
   mutation AddArticleMutation ($articleInput: ArticleInput!) {
     addArticle(articleInput: $articleInput) {

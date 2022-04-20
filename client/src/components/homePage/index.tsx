@@ -34,7 +34,7 @@ const HomePage = (props: IHomePage) => {
     <div className="flex flex-col items-center w-full h-full">
       <Header />
       {articleListQuery.loading || articleListQuery.error ? <CircularProgress className="text-gray-400 mt-6" size={24} /> : (
-        queriedArticleList.articles.map(({ id, ...rest }) => <ArticleItem key={id} {...rest} />)
+        queriedArticleList.articles.map(({ id, ...rest }) => <ArticleItem key={id} id={id} {...rest} />)
       )}
       {articleCountQuery.loading || articleCountQuery.error ? <CircularProgress className="text-gray-400 mt-6" size={24} /> : (
         <Pagination
